@@ -114,6 +114,12 @@ def basic_info(request: Request):
     # done.
     return APIInfo(**info)
 
+@app.get('/', response_model=APIInfo, tags=['info'])
+def neural_config():
+    settings = getSettings()
+    model_params = metadata
+    return model_params
+
 
 @app.post('/prediction', response_model=PredictionResult, tags=['classification'])
 def single_text_prediction(query: SingleTextQuery, request: Request):
