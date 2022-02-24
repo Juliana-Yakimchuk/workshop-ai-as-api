@@ -27,7 +27,7 @@ class AIModel:
     def __post_init__(self):
         if self.modelPath.exists():
             self.model = load_model(self.modelPath)
-            config = self.model.to_json() 
+            self.config = self.model.to_json() 
         else:
             raise ValueError('Could not load model data')
         #
@@ -41,6 +41,10 @@ class AIModel:
             self.metadata = json.loads(self.metadataPath.read_text())
         else:
             raise ValueError('Could not load metadata')
+    
+    def getModelInfo(self):
+        config = self.config
+        return config
 
 
     def getPaddedSequencesFromTexts(self, texts: List[str]):

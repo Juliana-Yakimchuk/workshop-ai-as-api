@@ -115,10 +115,10 @@ def basic_info(request: Request):
     return APIInfo(**info)
 
 @app.get('/', response_model=APIInfo, tags=['info'])
-def neural_config():
+def neural_config(request: Request):
     settings = getSettings()
-    model_params = config
-    return model_params
+    info = getModelInfo()
+    return APIInfo(**info)
 
 
 @app.post('/prediction', response_model=PredictionResult, tags=['classification'])
