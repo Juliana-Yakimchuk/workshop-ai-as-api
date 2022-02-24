@@ -117,7 +117,7 @@ def basic_info(request: Request):
 @app.get('/', response_model=APIInfo, tags=['info'])
 def neural_config():
     settings = getSettings()
-    model_params = metadata
+    model_params = config
     return model_params
 
 

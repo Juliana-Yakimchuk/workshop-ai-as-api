@@ -26,7 +26,8 @@ class AIModel:
 
     def __post_init__(self):
         if self.modelPath.exists():
-            self.model = load_model(self.modelPath) 
+            self.model = load_model(self.modelPath)
+            config = self.model.to_json() 
         else:
             raise ValueError('Could not load model data')
         #

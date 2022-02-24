@@ -25,6 +25,10 @@ class APIInfo(BaseModel):
     model_version: str
     started_at: str
 
+class ModelInfo(BaseModel):
+    model_info: str
+
+
 
 class PredictionTopInfo(BaseModel):
     label: str
