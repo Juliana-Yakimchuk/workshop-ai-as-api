@@ -19,6 +19,8 @@ from api.dbio import (formatCallerLogJSON, storeCallsToLog, cachePrediction,
                       readCachedPrediction, getThisHour)
 from api.database.db import initSession
 from api.database.models import (SpamCacheItem, SpamCallItem)
+from pathlib import Path
+from tensorflow.keras.models import load_model
 
 
 # mockup switch in case one has trouble getting the trained model and
@@ -114,11 +116,18 @@ def basic_info(request: Request):
     # done.
     return APIInfo(**info)
 
-@app.get('/', response_model=APIInfo, tags=['info'])
+@app.get('/model_config', response_model=APIInfo, tags=['info'])
 def neural_config(request: Request):
-    settings = getSettings()
-    info = getModelInfo()
-    return APIInfo(**info)
+    
+    model_info = {}
+    model_info['api_name'] = load_model(Path("training/trained_model_v1/spam_model.h5")).to_json()
+    model_info['astra_db_keyspace'] = ''
+    model_info['caller_id'] = ''
+    model_info['model_directory'] = ''
+    model_info['model_version'] = ''
+    model_info['started_at'] = ''
+
+    return APIInfo(**model_info)
 
 
 @app.post('/prediction', response_model=PredictionResult, tags=['classification'])
