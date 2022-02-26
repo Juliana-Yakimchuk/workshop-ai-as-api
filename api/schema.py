@@ -26,9 +26,7 @@ class APIInfo(BaseModel):
     started_at: str
 
 class ModelInfo(BaseModel):
-    model_info: str
-
-
+    model_info: dict
 
 class PredictionTopInfo(BaseModel):
     label: str
